@@ -1,0 +1,160 @@
+import sklearn
+from sklearn.naive_bayes import GaussianNB, MultinomialNB
+from sklearn.model_selection import train_test_split
+from pandas import Series, DataFrame
+import pandas as pd
+import collections
+import recommender as rec
+import csv
+
+#Dataset Original
+#                               Importa e Trabalha no Dataset Original de Machine Learning
+
+dataset = pd.read_csv("C:/Users/User Acer/Desktop/Paic/Datasets/Machine Learning/NaiveBayes/DatasetCarros.csv")
+df = pd.DataFrame(dataset, columns=['Marca','Modelo','Ano','Concessionaria','Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor','SensorDeEstacionamento','ArCondicionado','Bluetooth','Direcao','BancoCouro','GPS','VidrosEletricos','PilotoAutomatico','TetoSolar','TamPortaMala','Cacamba','ComputadorBordo','DisponibiliPeca','Airbag','ABS','Blindagem','FarolNeblina','IPVA','ConsumoGasolina','Seguro','Manutencao','Motor','CavalosForca','VelMaxima'])
+
+df['Conforto'] = df[['SensorDeEstacionamento','ArCondicionado','Bluetooth','Direcao','BancoCouro','GPS','VidrosEletricos','PilotoAutomatico','TetoSolar','TamPortaMala','Cacamba','ComputadorBordo']].mean(axis=1)
+df['Seguranca'] = df[['DisponibiliPeca','Airbag','ABS','Blindagem','FarolNeblina']].mean(axis=1)
+df['GastosFixos'] = df[['IPVA','ConsumoGasolina','Seguro','Manutencao']].mean(axis=1)
+df['Desempenho'] = df[['IPVA','ConsumoGasolina','Seguro','Manutencao']].mean(axis=1)
+
+df.drop(['SensorDeEstacionamento','ArCondicionado','Bluetooth','Direcao','BancoCouro','GPS','VidrosEletricos','PilotoAutomatico','TetoSolar','TamPortaMala','Cacamba','ComputadorBordo','DisponibiliPeca','Airbag','ABS','Blindagem','FarolNeblina','IPVA','ConsumoGasolina','Seguro','Manutencao','Motor','CavalosForca','VelMaxima'], axis=1, inplace=True)
+
+
+#Recomendacoes e Novo Dataset
+#                               Faz Recomendacoes para alimentar um dataset que sera utilizado no modelo de machine learning
+key = ["Conforto","Seguranca","GastosFixos","Desempenho","Carroceria","NumLugares","NumeroDePortas","Finalidade","Combustivel","Valor"]
+perfilUsuario = {"Conforto": 2,"Seguranca": 2,"GastosFixos": 1,"Desempenho": 1,"Carroceria": 1.5,"NumLugares": 5,"NumeroDePortas": 3,"Finalidade": 1,"Combustivel": 2,"Valor": 4}
+user = []
+for j in key:
+    user.append(perfilUsuario[j])
+
+def adicionaItens():
+    #Recomenda
+    recommendations = rec.recommend(user,df)
+    cont = 0
+    for recommend in recommendations:
+        print(cont, recommend)
+        cont+=1
+    #Avalia e adiciona no Dataset
+
+    print("esse e o chavoso")
+    print(recommendations[0])
+
+    #Avaliacao das recomendacoes validas
+    print("digite o valor referente ao index de cada item valido e clique enter, ao finalizar digitar e dar entem em -1: ")
+    indexvalidos = []
+    entrada = 0
+    while(entrada != -1):
+        print("index: ")
+        entrada = int(input())
+
+        if (entrada != -1):
+            indexvalidos.append(entrada)
+    print(indexvalidos)
+
+    #formata as linhas para serem adicionadas no dataset
+    linhas = []
+    for i in indexvalidos:
+        linhas.append(list(recommendations[i][1]))
+    for i in range(len(linhas)):
+        for j in range(len(user)):
+            linhas[i].append(user[j])
+        linhas[i].append(1)
+
+    # As recomendacoes consideradas validas estao prontas para serem escritas no dataset
+
+    with open('C:/Users/User Acer/Desktop/Paic/Datasets/Machine Learning/NaiveBayes/DatasetCarrosComClasse.csv', 'a') as f:
+        writer = csv.writer(f)
+        for i in range(len(linhas)):
+            writer.writerow(linhas[i])
+
+    # Agora serao adicionadas as recomendacoes nao validas
+    naovalidos = []
+    for i in range(len(recommendations)):
+        if i not in indexvalidos:
+            naovalidos.append(list(recommendations[i][1]))
+
+    for i in range(len(naovalidos)):
+        for j in range(len(user)):
+            naovalidos[i].append(user[j])
+        naovalidos[i].append(0)
+
+    with open('C:/Users/User Acer/Desktop/Paic/Datasets/Machine Learning/NaiveBayes/DatasetCarrosComClasse.csv', 'a') as f:
+        writer = csv.writer(f)
+        for i in range(len(naovalidos)):
+            writer.writerow(naovalidos[i])
+
+
+'''
+
+print("terminou")
+    #print recommendations
+
+
+
+
+
+
+
+
+
+
+
+
+# Machine Learning
+
+dataset = pd.read_csv("C:/Users/User Acer/Desktop/Paic/Datasets/Machine Learning/NaiveBayes/DatasetCarros.csv")
+df = pd.DataFrame(dataset, columns=['Marca','Modelo','Ano','Concessionaria','Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor','SensorDeEstacionamento','ArCondicionado','Bluetooth','Direcao','BancoCouro','GPS','VidrosEletricos','PilotoAutomatico','TetoSolar','TamPortaMala','Cacamba','ComputadorBordo','DisponibiliPeca','Airbag','ABS','Blindagem','FarolNeblina','IPVA','ConsumoGasolina','Seguro','Manutencao','Motor','CavalosForca','VelMaxima'])
+
+
+
+#                               Divide o dataset em treino e teste
+
+train, test = train_test_split(df, test_size = 0.33, random_state = 42)
+
+#                               Divide o dataset em treino e teste
+
+TargetIndex = train[['Valido']]
+TestIndex = test[['Valido']]
+
+target_train= list(TargetIndex.index.values)
+features_train= train[['Marca','Modelo','Ano','Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor']]
+target_test= list(TestIndex.index.values)
+features_test= test[['Marca','Modelo','Ano','Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor']]
+
+#                               Construindo e treinando o Modelo
+
+bayes = GaussianNB()
+model = bayes.fit(features_train,target_train)
+
+#                               Fazer previsoes
+
+preds = bayes.predict(features_test)
+#print(preds)
+
+#                                   Printa as Previsoes
+
+for car in preds:
+    print(car, list(recommend.iloc[car]))
+
+
+
+
+
+#                                   Recomenda
+
+perfilUsuario = {"Carroceria": 1.5,"NumLugares": 5,"NumeroDePortas": 3,"Finalidade": 1,"Combustivel": 2,"Valor": 4,"Conforto": 2,"Seguranca": 2,"GastosFixos": 1,"Desempenho": 1}
+
+usuario = [list(perfilUsuario.values())]
+
+resultado = model.predict(usuario)
+
+print(list(recommend.iloc[resultado[0]]))
+
+#print(list(recommend.iloc[resultado]))
+'''
+#                               Main
+#print(train)
+adicionaItens()
+print("ta rodando")
