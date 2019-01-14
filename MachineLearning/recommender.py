@@ -74,5 +74,4 @@ def recommend(userName, df):
     distances.sort()
     distances.reverse() # ---- Pearson and Cosseno
     #distancesPearson = sorted(distances, key=int, reverse=True)
-    print(distances[:3])
     return (distances)

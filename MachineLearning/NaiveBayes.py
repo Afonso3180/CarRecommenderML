@@ -10,7 +10,7 @@ import csv
 #Dataset Original
 #                               Importa e Trabalha no Dataset Original de Machine Learning
 
-dataset = pd.read_csv("C:/Users/User Acer/Desktop/Paic/Datasets/Machine Learning/NaiveBayes/DatasetCarros.csv")
+dataset = pd.read_csv("C:/Users/User Acer/Documents/GitHub/CarRecommenderML/Datasets/NaiveBayes/DatasetCarros.csv")
 df = pd.DataFrame(dataset, columns=['Marca','Modelo','Ano','Concessionaria','Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor','SensorDeEstacionamento','ArCondicionado','Bluetooth','Direcao','BancoCouro','GPS','VidrosEletricos','PilotoAutomatico','TetoSolar','TamPortaMala','Cacamba','ComputadorBordo','DisponibiliPeca','Airbag','ABS','Blindagem','FarolNeblina','IPVA','ConsumoGasolina','Seguro','Manutencao','Motor','CavalosForca','VelMaxima'])
 
 df['Conforto'] = df[['SensorDeEstacionamento','ArCondicionado','Bluetooth','Direcao','BancoCouro','GPS','VidrosEletricos','PilotoAutomatico','TetoSolar','TamPortaMala','Cacamba','ComputadorBordo']].mean(axis=1)
@@ -24,10 +24,26 @@ df.drop(['SensorDeEstacionamento','ArCondicionado','Bluetooth','Direcao','BancoC
 #Recomendacoes e Novo Dataset
 #                               Faz Recomendacoes para alimentar um dataset que sera utilizado no modelo de machine learning
 key = ["Conforto","Seguranca","GastosFixos","Desempenho","Carroceria","NumLugares","NumeroDePortas","Finalidade","Combustivel","Valor"]
-perfilUsuario = {"Conforto": 2,"Seguranca": 2,"GastosFixos": 1,"Desempenho": 1,"Carroceria": 1.5,"NumLugares": 5,"NumeroDePortas": 3,"Finalidade": 1,"Combustivel": 2,"Valor": 4}
+#perfilUsuario = {"Conforto": 2,"Seguranca": 2,"GastosFixos": 1,"Desempenho": 1,"Carroceria": 1.5,"NumLugares": 5,"NumeroDePortas": 3,"Finalidade": 1,"Combustivel": 2,"Valor": 4}
+perfilUsuario = {}
+# Preencher o perfil usuario
+print("O Perfil do usuario deve ser preenchido a seguir com valores numericos de 1 a 5: ")
+perfilUsuario['Conforto'] = int(input('Conforto: '))
+perfilUsuario['Seguranca'] = int(input('Seguranca: '))
+perfilUsuario['GastosFixos'] = int(input('Gastos Fixos: '))
+perfilUsuario['Desempenho'] = int(input('Desempenho: '))
+perfilUsuario['Carroceria'] = int(input('Carroceria: '))
+perfilUsuario['NumLugares'] = int(input('Numero de Lugares: '))
+perfilUsuario['NumeroDePortas'] = int(input('Numero de Portas: '))
+perfilUsuario['Finalidade'] = int(input('Finalidade: '))
+perfilUsuario['Combustivel'] = int(input('Combustivel: '))
+perfilUsuario['Valor'] = int(input('Valor: '))
+
 user = []
 for j in key:
     user.append(perfilUsuario[j])
+
+#Cria o dataset que vai ser utilizado no Aprendizado
 
 def adicionaItens():
     #Recomenda
@@ -36,10 +52,7 @@ def adicionaItens():
     for recommend in recommendations:
         print(cont, recommend)
         cont+=1
-    #Avalia e adiciona no Dataset
-
-    print("esse e o chavoso")
-    print(recommendations[0])
+#Avalia e adiciona no Dataset
 
     #Avaliacao das recomendacoes validas
     print("digite o valor referente ao index de cada item valido e clique enter, ao finalizar digitar e dar entem em -1: ")
@@ -64,7 +77,7 @@ def adicionaItens():
 
     # As recomendacoes consideradas validas estao prontas para serem escritas no dataset
 
-    with open('C:/Users/User Acer/Desktop/Paic/Datasets/Machine Learning/NaiveBayes/DatasetCarrosComClasse.csv', 'a') as f:
+    with open('C:/Users/User Acer/Documents/GitHub/CarRecommenderML/Datasets/NaiveBayes/DatasetCarrosComClasse.csv', 'a') as f:
         writer = csv.writer(f)
         for i in range(len(linhas)):
             writer.writerow(linhas[i])
@@ -80,7 +93,7 @@ def adicionaItens():
             naovalidos[i].append(user[j])
         naovalidos[i].append(0)
 
-    with open('C:/Users/User Acer/Desktop/Paic/Datasets/Machine Learning/NaiveBayes/DatasetCarrosComClasse.csv', 'a') as f:
+    with open('C:/Users/User Acer/Documents/GitHub/CarRecommenderML/Datasets/NaiveBayes/DatasetCarrosComClasse.csv', 'a') as f:
         writer = csv.writer(f)
         for i in range(len(naovalidos)):
             writer.writerow(naovalidos[i])
@@ -104,7 +117,7 @@ print("terminou")
 
 # Machine Learning
 
-dataset = pd.read_csv("C:/Users/User Acer/Desktop/Paic/Datasets/Machine Learning/NaiveBayes/DatasetCarros.csv")
+dataset = pd.read_csv("C:/Users/User Acer/Documents/GitHub/CarRecommenderML/Datasets/NaiveBayes/DatasetCarros.csv")
 df = pd.DataFrame(dataset, columns=['Marca','Modelo','Ano','Concessionaria','Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor','SensorDeEstacionamento','ArCondicionado','Bluetooth','Direcao','BancoCouro','GPS','VidrosEletricos','PilotoAutomatico','TetoSolar','TamPortaMala','Cacamba','ComputadorBordo','DisponibiliPeca','Airbag','ABS','Blindagem','FarolNeblina','IPVA','ConsumoGasolina','Seguro','Manutencao','Motor','CavalosForca','VelMaxima'])
 
 
