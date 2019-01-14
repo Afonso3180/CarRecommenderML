@@ -82,21 +82,31 @@ def adicionaItens():
         for i in range(len(linhas)):
             writer.writerow(linhas[i])
 
-    # Agora serao adicionadas as recomendacoes nao validas
+    # Insere as recomendacoes nao validas
+    print("digite o valor referente ao index de cada item nao valido e clique enter, ao finalizar digitar e dar entem em -1: ")
     naovalidos = []
-    for i in range(len(recommendations)):
-        if i not in indexvalidos:
-            naovalidos.append(list(recommendations[i][1]))
+    entradainvalidos = 0
+    while(entradainvalidos != -1):
+        print("index: ")
+        entradainvalidos = int(input())
 
-    for i in range(len(naovalidos)):
+        if (entradainvalidos != -1):
+            naovalidos.append(entradainvalidos)
+    print(naovalidos)
+
+    linhasinvalidas = []
+
+    for i in indexvalidos:
+        linhasinvalidas.append(list(recommendations[i][1]))
+    for i in range(len(linhasinvalidas)):
         for j in range(len(user)):
-            naovalidos[i].append(user[j])
-        naovalidos[i].append(0)
+            linhasinvalidas[i].append(user[j])
+        linhasinvalidas[i].append(0)
 
     with open('C:/Users/User Acer/Documents/GitHub/CarRecommenderML/Datasets/NaiveBayes/DatasetCarrosComClasse.csv', 'a') as f:
         writer = csv.writer(f)
-        for i in range(len(naovalidos)):
-            writer.writerow(naovalidos[i])
+        for i in range(len(linhasinvalidas)):
+            writer.writerow(linhasinvalidas[i])
 
 
 '''
