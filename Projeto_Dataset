@@ -1,0 +1,120 @@
+
+
+#/////////////////////////      Dataset para os carros     ////////////////////////////////////////////////.
+
+
+#                           ///////BASICS//////////////
+#
+# Marca:
+# Modelo:
+# Ano:
+# Concessionaria:
+# Conforto: 1=baixo; 2=medio; 4=alto
+# Segurança: 1=baixa; 2=media; 4=alta
+# GastosFixos: 1=baixo; 2=medio; 4=alto
+# Desempenho: 1=comum; 2=alto; 4=muito alto
+# Carroceria: 1 = hatchback; 1.5 = Wagon; 2=Sedan; 2.5=Compact; 3=Van; 3.5=SUV; 4=Coupe; 4.5=PickUp; 5=Sport
+# NumLugares: 1; 2; 3; 4; 5
+# NumeroDePortas: 1=2; 2=3; 3=4
+# Finalidade: 1=uso comum; 2=velocidade; 3=trilha; 4=transporte de carga;
+# Combustivel: 1 = gasolina; 2 = flex; 2.5 = hibrido; 3 = eletrico; 4 = gas; 5 = diesel
+# Valor: 1 = <30.000; 2 = >30.000 & < 40.000; 3 =>40.000 & <70.000; 4 = > 70.000 & <100.000; 5 => 100.000
+
+#
+#                        //////////// CONFORTO ///////////////
+#
+# SensorDeEstacionamento: 1=Nao Possui; 5=Possui
+# ArCondicionado: 1=Nao Possui; 5=Possui
+# Bluetooth: 1=Nao Possui; 5=Possui
+# Direcao: 1=Mecanica; 3=Hidraulica; 5=Eletrica
+# BancoCouro: 1=Nao Possui; 5=Possui
+# GPS: 1=Nao Possui; 5=Possui
+# VidrosEletricos: 1=Nao Possui; 5 = Possui
+# PilotoAutomatico: 1=Nao Possui; 5 = Possui
+# TetoSolar: 1=Nao Possui; 3=Conversivel; 5 = Possui
+# TamPortaMala: 0=Nao Tem; 1=< 200; 3 > 200 & =< 400; 5 > 400 /////Conta como apenas um atributo
+# Cacamba: 0=Nao Tem; 5=Possui;                           ///
+# ComputadorBordo: 1=Nao Possui; 5=Possui
+#
+#                      //////////// SEGURANÇA ///////////////
+#
+# DisponibiliPeca: 1=Baixa; 3=Media; 5=Alta
+# Airbag: 1=Nao Possui; 5=Possui
+# ABS: 1=Nao Possui; 5=Possui
+# Blindagem: 1=Nao Possui; 5=Possui
+# FarolNeblina: 1=Nao Possui; 5=Possui
+#
+#                       /////////// GASTOS FIXOS//////////////
+#
+# IPVA: 1<=2000; 2 > 2000 & <= 7000; 3 > 7000 & <= 20000; 4 > 20000 & <= 40000; 5 > 40000
+# ConsumoGasolina: 1 >= 15KM/l; 2 < 15KM/l & >= 10KM/l; 3 < 10KM/l & >= 6KM/l; 4 < 6KM/l
+# Seguro: 1<=2000; 2 > 2000 & <= 7000; 3 > 7000 & <= 20000; 4 > 20000 & <= 50000; 5 > 50000
+# Manutencao: 1=baixa; 2=media; 3=alta; 4=muito alta
+#
+#                    //////////// DESEMPENHO //////////
+#
+# Motor: 1 >=1.0 & < 1.6; 2 >= 1.6 & < 1.8; 3 >= 1.8 & < 3.0; 4 >= 3.0 & < 5.0; 5 >= 5
+# CavalosForca: 1<=100; 2>100 & <=250; 3 >250 & <=500; 4 >500 & <= 700; 5 >700
+# VelMaxima: 1=<200; 3 > 200 & =< 300; 5 >300
+#
+#////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#//////////////////////////    Dataset para o perfil do cliente /////////////////////////////////////////
+#
+# Carroceria: 1 = hatchback; 1.5 = Wagon; 2=Sedan; 2.5=Compact; 3=Van; 3.5=SUV; 4=Coupe; 4.5=PickUp; 5=Sport# NumLugares: 1; 2; 3; 4; 5
+# NumeroDePortas: 1=2; 2=3; 3=4; 4=5
+# Finalidade: 1=uso comum; 2=corrida; 3=trilha; 4=transporte de carga;
+# Combustivel: 1 = gasolina; 2 = alcool; 3 = eletrico; 4 = gas; 5 = diesel
+# Valor: 1 = <20.000; 2 = >20.000 & < 30.000; 3 = >30.000 & <60.000; 4 = > 60.000 & <100.000; 5 => >100.000
+# Conforto: 1=baixo; 2=medio; 4=alto
+# Segurança: 1=baixa; 2=media; 4=alta
+# GastosFixos: 1=baixo; 2=medio; 4=alto
+# Desempenho: 1=comum; 2=alto; 4=muito alto
+#
+#//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#/////////////////////////       Em Caso de Emergênia Copie Daqui ////////////////////////////////////////
+
+
+# Endereco:
+# Carroceria: 1 = esportivo; 2 = classico; 3 = familiar; 4 = utilitario; 5 = popular////
+# Combustivel: 1 = gasolina; 2 = alcool; 3 = eletrico; 4 = gas; 5 = diesel
+# Cor: 1 = branco; 2 = vermelho; 3 = prata; 4 = vinho; 5 = preto
+# Valor: 1 = <20.000; 2 = >20.000 & < 30.000; 3 = >30.000 & <60.000; 4 = > 60.000 & <100.000; 5 => >100.000
+# Estado: 1 = usado; 2 = seminovo; 3 = novo
+# Manutencao: 1=baixa; 2=media; 3=alta; 4=muito alta
+# Segurança: 1=baixa; 2=media; 3=alta
+# Conforto: 1=baixo; 2=medio; 3=alto
+# GastosFixos: 1=baixo; 2=medio; 3=alto
+# NumLugares: 1; 2; 3; 4; 5
+# FrequeUso: 1=diaria; 2=poucas vezes durante a semana; 3=fins de semana; 4=epocas especificas;
+# Finalidade: 1=uso comum; 2=corrida; 3=trilha; 4=transporte de carga;
+# Ano: 1 <= 1990; 2 >1990 & <= 2010; 3 > 2010
+# Desempenho: 1=muito alto; 2=alto; 3=comum
+#
+
+# Ano: 1 <= 1990; 2 >1990 & <= 2010; 3 > 2010
+
+

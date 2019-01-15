@@ -69,7 +69,7 @@ def adicionaItens():
 
         if (entrada != -1):
             indexvalidos.append(entrada)
-    print(indexvalidos)
+    #print(indexvalidos) Utilizado apenas se necessario debug
 
     #formata as linhas para serem adicionadas no dataset
     linhas = []
@@ -97,7 +97,7 @@ def adicionaItens():
 
         if (entradainvalidos != -1):
             naovalidos.append(entradainvalidos)
-    print(naovalidos)
+    #print(naovalidos) Utilizado apenas se necessario debug
 
     linhasinvalidas = []
 
@@ -114,26 +114,11 @@ def adicionaItens():
             writer.writerow(linhasinvalidas[i])
 
 
-'''
-
-print("terminou")
-    #print recommendations
-
-
-
-
-
-
-
-
-
-
-
 
 # Machine Learning
 
-dataset = pd.read_csv("C:/Users/User Acer/Documents/GitHub/CarRecommenderML/Datasets/NaiveBayes/DatasetCarros.csv")
-df = pd.DataFrame(dataset, columns=['Marca','Modelo','Ano','Concessionaria','Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor','SensorDeEstacionamento','ArCondicionado','Bluetooth','Direcao','BancoCouro','GPS','VidrosEletricos','PilotoAutomatico','TetoSolar','TamPortaMala','Cacamba','ComputadorBordo','DisponibiliPeca','Airbag','ABS','Blindagem','FarolNeblina','IPVA','ConsumoGasolina','Seguro','Manutencao','Motor','CavalosForca','VelMaxima'])
+dataset = pd.read_csv("C:/Users/User Acer/Documents/GitHub/CarRecommenderML/Datasets/NaiveBayes/DatasetCarrosComClasse.csv")
+df = pd.DataFrame(dataset, columns=['Marca','Modelo','Ano','Concessionaria','Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor','Valido'])
 
 
 
@@ -150,16 +135,24 @@ target_train= list(TargetIndex.index.values)
 features_train= train[['Marca','Modelo','Ano','Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor']]
 target_test= list(TestIndex.index.values)
 features_test= test[['Marca','Modelo','Ano','Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor']]
-
+'''
+print(target_train)
+print("funciona ate aqui")
+print(features_train)
+print("funciona ate aqui")
+print(target_test)
+print("funciona ate aqui")
+print(features_test)
+'''
 #                               Construindo e treinando o Modelo
-
+'''
 bayes = GaussianNB()
 model = bayes.fit(features_train,target_train)
 
 #                               Fazer previsoes
 
 preds = bayes.predict(features_test)
-#print(preds)
+print(preds)
 
 #                                   Printa as Previsoes
 
