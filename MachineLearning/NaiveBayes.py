@@ -20,7 +20,7 @@ df['Desempenho'] = df[['IPVA','ConsumoGasolina','Seguro','Manutencao']].mean(axi
 
 df.drop(['SensorDeEstacionamento','ArCondicionado','Bluetooth','Direcao','BancoCouro','GPS','VidrosEletricos','PilotoAutomatico','TetoSolar','TamPortaMala','Cacamba','ComputadorBordo','DisponibiliPeca','Airbag','ABS','Blindagem','FarolNeblina','IPVA','ConsumoGasolina','Seguro','Manutencao','Motor','CavalosForca','VelMaxima'], axis=1, inplace=True)
 
-
+carrosAExibir = df[['Marca','Modelo','Ano']]
 #Recomendacoes e Novo Dataset
 #                               Faz Recomendacoes para alimentar um dataset que sera utilizado no modelo de machine learning
 key = ["Conforto","Seguranca","GastosFixos","Desempenho","Carroceria","NumLugares","NumeroDePortas","Finalidade","Combustivel","Valor"]
@@ -40,18 +40,23 @@ perfilUsuario['Combustivel'] = int(input('Combustivel: '))
 perfilUsuario['Valor'] = int(input('Valor: '))
 
 user = []
-for j in key:
+for j in key: #O perfil do usuario recebe os valores inseridos
     user.append(perfilUsuario[j])
 
 #Cria o dataset que vai ser utilizado no Aprendizado
 
+carros = [] #Criado com o intuito de facilitar ao armazenar no dataset
 def adicionaItens():
-    #Recomenda
-    recommendations = rec.recommend(user,df)
+    #Exibe os carros do Dataset
     cont = 0
-    for recommend in recommendations:
-        print(cont, recommend)
+    tam = df.shape[0]
+    #compare = list(userName.values())
+    for i in range(tam):
+        car = carrosAExibir.iloc[i]
+        print(cont, list(car))
+        carros.append(list(car))
         cont+=1
+
 #Avalia e adiciona no Dataset
 
     #Avaliacao das recomendacoes validas
@@ -69,7 +74,7 @@ def adicionaItens():
     #formata as linhas para serem adicionadas no dataset
     linhas = []
     for i in indexvalidos:
-        linhas.append(list(recommendations[i][1]))
+        linhas.append(list(carros[i]))
     for i in range(len(linhas)):
         for j in range(len(user)):
             linhas[i].append(user[j])
@@ -82,7 +87,7 @@ def adicionaItens():
         for i in range(len(linhas)):
             writer.writerow(linhas[i])
 
-    # Insere as recomendacoes nao validas
+    # Insere os itens nao validos
     print("digite o valor referente ao index de cada item nao valido e clique enter, ao finalizar digitar e dar entem em -1: ")
     naovalidos = []
     entradainvalidos = 0
@@ -96,8 +101,8 @@ def adicionaItens():
 
     linhasinvalidas = []
 
-    for i in indexvalidos:
-        linhasinvalidas.append(list(recommendations[i][1]))
+    for i in naovalidos:
+        linhasinvalidas.append(list(carros[i]))
     for i in range(len(linhasinvalidas)):
         for j in range(len(user)):
             linhasinvalidas[i].append(user[j])
