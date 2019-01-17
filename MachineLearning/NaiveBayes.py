@@ -27,21 +27,22 @@ key = ["Conforto","Seguranca","GastosFixos","Desempenho","Carroceria","NumLugare
 #perfilUsuario = {"Conforto": 2,"Seguranca": 2,"GastosFixos": 1,"Desempenho": 1,"Carroceria": 1.5,"NumLugares": 5,"NumeroDePortas": 3,"Finalidade": 1,"Combustivel": 2,"Valor": 4}
 perfilUsuario = {}
 # Preencher o perfil usuario
-print("O Perfil do usuario deve ser preenchido a seguir com valores numericos de 1 a 5: ")
-perfilUsuario['Conforto'] = int(input('Conforto: '))
-perfilUsuario['Seguranca'] = int(input('Seguranca: '))
-perfilUsuario['GastosFixos'] = int(input('Gastos Fixos: '))
-perfilUsuario['Desempenho'] = int(input('Desempenho: '))
-perfilUsuario['Carroceria'] = int(input('Carroceria: '))
-perfilUsuario['NumLugares'] = int(input('Numero de Lugares: '))
-perfilUsuario['NumeroDePortas'] = int(input('Numero de Portas: '))
-perfilUsuario['Finalidade'] = int(input('Finalidade: '))
-perfilUsuario['Combustivel'] = int(input('Combustivel: '))
-perfilUsuario['Valor'] = int(input('Valor: '))
+def preencheperfil():
+    print("O Perfil do usuario deve ser preenchido a seguir com valores numericos de 1 a 5: ")
+    perfilUsuario['Conforto'] = int(input('Conforto: '))
+    perfilUsuario['Seguranca'] = int(input('Seguranca: '))
+    perfilUsuario['GastosFixos'] = int(input('Gastos Fixos: '))
+    perfilUsuario['Desempenho'] = int(input('Desempenho: '))
+    perfilUsuario['Carroceria'] = int(input('Carroceria: '))
+    perfilUsuario['NumLugares'] = int(input('Numero de Lugares: '))
+    perfilUsuario['NumeroDePortas'] = int(input('Numero de Portas: '))
+    perfilUsuario['Finalidade'] = int(input('Finalidade: '))
+    perfilUsuario['Combustivel'] = int(input('Combustivel: '))
+    perfilUsuario['Valor'] = int(input('Valor: '))
 
-user = []
-for j in key: #O perfil do usuario recebe os valores inseridos
-    user.append(perfilUsuario[j])
+    user = []
+    for j in key: #O perfil do usuario recebe os valores inseridos
+        user.append(perfilUsuario[j])
 
 #Cria o dataset que vai ser utilizado no Aprendizado
 
@@ -114,57 +115,60 @@ def adicionaItens():
             writer.writerow(linhasinvalidas[i])
 
 
-
+def ML_NaiveBayes():
 # Machine Learning
 
-dataset = pd.read_csv("C:/Users/User Acer/Documents/GitHub/CarRecommenderML/Datasets/NaiveBayes/DatasetCarrosComClasse.csv")
-df = pd.DataFrame(dataset, columns=['Marca','Modelo','Ano','Concessionaria','Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor','Valido'])
+    datasetML = pd.read_csv("C:/Users/User Acer/Documents/GitHub/CarRecommenderML/Datasets/NaiveBayes/DatasetCarrosComClasse.csv")
+    dfML = pd.DataFrame(datasetML, columns=['Marca','Modelo','Ano','Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor','Valido'])
 
 
 
 #                               Divide o dataset em treino e teste
 
-train, test = train_test_split(df, test_size = 0.33, random_state = 42)
+    train, test = train_test_split(dfML, test_size = 0.33, random_state = 42)
 
 #                               Divide o dataset em treino e teste
 
-TargetIndex = train[['Valido']]
-TestIndex = test[['Valido']]
+    #features_train= train[['Marca','Modelo','Ano','Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor']]
+    features_train= train[['Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor']]
+    target_train= train[['Valido']]
 
-target_train= list(TargetIndex.index.values)
-features_train= train[['Marca','Modelo','Ano','Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor']]
-target_test= list(TestIndex.index.values)
-features_test= test[['Marca','Modelo','Ano','Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor']]
-'''
-print(target_train)
-print("funciona ate aqui")
-print(features_train)
-print("funciona ate aqui")
-print(target_test)
-print("funciona ate aqui")
-print(features_test)
-'''
+    #features_test= test[['Marca','Modelo','Ano','Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor']]
+    features_test= test[['Conforto','Seguranca','GastosFixos','Desempenho','Carroceria','NumLugares','NumeroDePortas','Finalidade','Combustivel','Valor']]
+    target_test= test[['Valido']]
+
+    '''
+    print(target_train)
+    print("funciona ate aqui")
+    print(features_train)
+    print("funciona ate aqui")
+    print(target_test)
+    print("funciona ate aqui")
+    print(features_test)
+    '''
 #                               Construindo e treinando o Modelo
-'''
-bayes = GaussianNB()
-model = bayes.fit(features_train,target_train)
+
+    bayes = GaussianNB()
+    model = bayes.fit(features_train,target_train)
 
 #                               Fazer previsoes
 
-preds = bayes.predict(features_test)
-print(preds)
-
+    preds = bayes.predict(features_test)
+    print(preds)
+    print(target_test)
+    '''
 #                                   Printa as Previsoes
 
-for car in preds:
-    print(car, list(recommend.iloc[car]))
+    for car in preds:
+        print(car, list(recommend.iloc[car]))
 
 
 
 
 
 #                                   Recomenda
-
+    '''
+'''
 perfilUsuario = {"Carroceria": 1.5,"NumLugares": 5,"NumeroDePortas": 3,"Finalidade": 1,"Combustivel": 2,"Valor": 4,"Conforto": 2,"Seguranca": 2,"GastosFixos": 1,"Desempenho": 1}
 
 usuario = [list(perfilUsuario.values())]
@@ -177,5 +181,8 @@ print(list(recommend.iloc[resultado[0]]))
 '''
 #                               Main
 #print(train)
-adicionaItens()
+
+#preencheperfil()
+#adicionaItens()
+ML_NaiveBayes()
 print("ta rodando")
