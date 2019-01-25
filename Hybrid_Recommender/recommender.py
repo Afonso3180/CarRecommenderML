@@ -1,6 +1,7 @@
 import numpy as np
 from math import sqrt
 
+
 def manhattan(carros, perfilDoUsuario):
     """Computes the Manhattan distance. """
     distance = 0
@@ -64,15 +65,18 @@ def recommend(userName, df):
     """creates a sorted list of cars based on their distance to perfilDoUsuario"""
     distances = []
     tam = df.shape[0]
-    #compare = list(userName.values())
+    compare = list(userName.values())
+    print(compare)
     for i in range(tam):
         carro = df.iloc[i]
-        distance = pearson(list(carro)[4:], userName)
-        #distance = cos_sim(list(carro)[4:], userName)
-        #distance = manhattan(list(carro)[4:], userName)
+
+        #distance = pearson(list(carro)[4:], compare)
+        distance = cos_sim(list(carro)[4:], compare)
+        #distance = manhattan(list(carro)[4:], compare)
         distances.append((distance, list(carro)[:4]))
     # sort based on distance -- closest first
     distances.sort()
     distances.reverse() # ---- Pearson and Cosseno
     #distancesPearson = sorted(distances, key=int, reverse=True)
-    return (distances)
+    #print(distances[:3])
+    return distances
